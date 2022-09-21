@@ -4,7 +4,6 @@ import com.hillel.enterprise_homework3.dtos.PersonDTO;
 import com.hillel.enterprise_homework3.exceptions.PersonNotFoundException;
 import com.hillel.enterprise_homework3.models.PersonModel;
 import com.hillel.enterprise_homework3.repositories.PersonRepository;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -19,7 +18,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void addPerson(@NonNull PersonDTO personDTO) {
+    public void addPerson(PersonDTO personDTO) {
         PersonModel person = new PersonModel(
                 personDTO.getFirstName(),
                 personDTO.getLastName(),
@@ -34,7 +33,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public PersonModel getPersonById(@NonNull Integer id) throws PersonNotFoundException {
+    public PersonModel getPersonById(Integer id) throws PersonNotFoundException {
         if (personRepository.getPersons().containsKey(id)) {
             return personRepository.getPersons().get(id);
         } else {
@@ -56,7 +55,7 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePersonById(@NonNull Integer id) throws PersonNotFoundException {
+    public void deletePersonById(Integer id) throws PersonNotFoundException {
         if (personRepository.getPersons().containsKey(id)) {
             personRepository.getPersons().remove(id);
         } else {

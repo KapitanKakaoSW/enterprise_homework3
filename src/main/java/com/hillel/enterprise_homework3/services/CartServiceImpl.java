@@ -5,7 +5,6 @@ import com.hillel.enterprise_homework3.exceptions.PersonNotFoundException;
 import com.hillel.enterprise_homework3.exceptions.ProductNotFoundException;
 import com.hillel.enterprise_homework3.models.CartModel;
 import com.hillel.enterprise_homework3.repositories.CartRepository;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,13 +27,13 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void createCart(@NonNull Integer id) {
+    public void createCart(Integer id) {
         CartModel cart = new CartModel(id);
         cartRepository.getCarts().put(cart.getCartId(), cart);
     }
 
     @Override
-    public Collection<CartModel> getAllCartsByPersonId(@NonNull Integer id) {
+    public Collection<CartModel> getAllCartsByPersonId(Integer id) {
         return cartRepository.getCarts().values()
                 .stream().filter(cartModel -> cartModel.getOwnerId().equals(id))
                 .collect(Collectors.toList());
@@ -51,7 +50,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addProductByProductIdAndCartId(@NonNull Integer productId, @NonNull Integer cartId)
+    public void addProductByProductIdAndCartId(Integer productId, Integer cartId)
             throws CartNotFoundException, ProductNotFoundException {
 
        if (cartRepository.getCarts().containsKey(cartId)) {
@@ -65,7 +64,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeProductByProductIdAndCartId(@NonNull Integer productId, @NonNull Integer cartId)
+    public void removeProductByProductIdAndCartId(Integer productId, Integer cartId)
             throws CartNotFoundException, ProductNotFoundException {
 
         if (cartRepository.getCarts().containsKey(cartId)) {
@@ -79,7 +78,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeAllProductsByCartId(@NonNull Integer id) throws CartNotFoundException {
+    public void removeAllProductsByCartId(Integer id) throws CartNotFoundException {
         if (cartRepository.getCarts().containsKey(id)) {
             cartRepository.getCarts().get(id).getProducts().clear();
         } else {
@@ -88,7 +87,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeCartById(@NonNull Integer id) throws CartNotFoundException {
+    public void removeCartById(Integer id) throws CartNotFoundException {
         if (cartRepository.getCarts().containsKey(id)) {
             cartRepository.getCarts().remove(id);
         } else {
@@ -97,7 +96,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void removeAllCartsByPersonId(@NonNull Integer id) throws PersonNotFoundException {
+    public void removeAllCartsByPersonId(Integer id) throws PersonNotFoundException {
         personService.getPersonById(id).getCarts().clear();
     }
 }

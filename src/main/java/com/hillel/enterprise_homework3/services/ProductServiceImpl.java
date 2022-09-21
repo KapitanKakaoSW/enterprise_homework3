@@ -4,7 +4,6 @@ import com.hillel.enterprise_homework3.dtos.ProductDTO;
 import com.hillel.enterprise_homework3.exceptions.ProductNotFoundException;
 import com.hillel.enterprise_homework3.models.ProductModel;
 import com.hillel.enterprise_homework3.repositories.ProductRepository;
-import lombok.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -20,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProduct(@NonNull ProductDTO productDTO) {
+    public void addProduct(ProductDTO productDTO) {
         ProductModel product = new ProductModel(
                 productDTO.getProductName(),
                 productDTO.getProductDescription(),
@@ -34,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductModel getProductById(@NonNull Integer id) throws ProductNotFoundException {
+    public ProductModel getProductById(Integer id) throws ProductNotFoundException {
         if (productRepository.getProducts().containsKey(id)) {
             return productRepository.getProducts().get(id);
         } else {
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Collection<ProductModel> getProductByName(@NonNull String name) throws ProductNotFoundException {
+    public Collection<ProductModel> getProductByName(String name) throws ProductNotFoundException {
         Collection<ProductModel> products = productRepository.getProducts().values()
                 .stream().filter(productModel -> productModel.getProductName().equals(name))
                 .collect(Collectors.toList());
@@ -56,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProductById(@NonNull Integer id, ProductDTO productDTO) throws ProductNotFoundException {
+    public void updateProductById(Integer id, ProductDTO productDTO) throws ProductNotFoundException {
         if (productRepository.getProducts().containsKey(id)) {
             ProductModel product = productRepository.getProducts().get(id);
             product.setProductName(productDTO.getProductName());
@@ -68,7 +67,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void removeProductById(@NonNull Integer id) throws ProductNotFoundException {
+    public void removeProductById(Integer id) throws ProductNotFoundException {
         if (productRepository.getProducts().containsKey(id)){
             productRepository.getProducts().remove(id);
         } else {
